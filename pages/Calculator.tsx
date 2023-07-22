@@ -104,6 +104,7 @@ const Calculator = () => {
       borderColor="gray.600"
       opacity="0.9"
       width="85%"
+      maxWidth={600}
     >
       <Heading color="purple.300">Replicator APR</Heading>
 
