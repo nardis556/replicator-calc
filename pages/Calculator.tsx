@@ -163,7 +163,7 @@ const Calculator = () => {
             <Td>IDEX $USD price:</Td>
             <Td isNumeric>
               {tokenPriceData?.price
-                ? parseFloat(tokenPriceData.price).toLocaleString()
+                ? parseFloat(tokenPriceData.price).toFixed(4).toLocaleString()
                 : "Loading..."}
             </Td>
           </Tr>
