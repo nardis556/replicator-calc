@@ -22,6 +22,7 @@ import {
 const Calculator = () => {
   const [exchangeData, setExchangeData] = useState(null);
   const [stakingData, setStakingData] = useState(null);
+  const [tokenPriceData, setTokenPriceData] = useState(null);
   const [tokenAmount, setTokenAmount] = useState(10000);
   const [inputAmount, setInputAmount] = useState("");
   const [APR, setAPR] = useState(0);
@@ -33,15 +34,23 @@ const Calculator = () => {
 
   useEffect(() => {
     if (!fetched) {
-      const fetchData = async () => {
-        const exchangeResponse = await axios.get("/api/getExchangeData");
-        const stakingResponse = await axios.get("/api/getStakingData");
-        setExchangeData(exchangeResponse.data);
-        setStakingData(stakingResponse.data);
-        setFetched(true);
-      };
+      try {
+        const fetchData = async () => {
+          const exchangeResponse = await axios.get("/api/getExchangeData");
+          const stakingResponse = await axios.get("/api/getStakingData");
+          const tokenPriceResponse = await axios.get("/api/getTokenPriceData");
+          setExchangeData(exchangeResponse.data);
+          setStakingData(stakingResponse.data);
+          setTokenPriceData({
+            price: parseFloat(tokenPriceResponse.data.price),
+          });
+          setFetched(true);
+        };
 
-      fetchData();
+        fetchData();
+      } catch (e) {
+        console.log(e);
+      }
     }
   }, [fetched]);
 
@@ -49,12 +58,12 @@ const Calculator = () => {
     if (fetched) {
       calculateRewards();
     }
-  }, [fetched, tokenAmount, liquidityRatio]);
+  }, [fetched, tokenAmount, liquidityRatio, referralPercentage]);
 
   const calculateRewards = () => {
     const volume24hUsd = parseFloat(exchangeData.volume24hUsd);
     const totalStakedIdex = parseFloat(stakingData.totalStakedIdex);
-    const tokenPriceUsd = parseFloat(exchangeData.idexUsdPrice);
+    const tokenPriceUsd = tokenPriceData.price;
     const idexLeft = 1e9 - totalStakedIdex;
 
     setIdexLeftRemaining(idexLeft);
@@ -72,12 +81,17 @@ const Calculator = () => {
 
     const userRewardUSD =
       totalFees * userStakeFraction * 0.5 * 365 * (1 - referralReduction);
-    const userRewardIDEX = userRewardUSD / tokenPriceUsd;
+    let userRewardIDEX = 0;
+    let APR = 0;
 
-    const APR =
-      (userRewardIDEX / parseFloat(tokenAmount)) *
-      100 *
-      (1 - referralReduction);
+    if (!isNaN(tokenPriceUsd) && tokenPriceUsd > 0) {
+      userRewardIDEX = userRewardUSD / tokenPriceUsd;
+
+      APR =
+        (userRewardIDEX / parseFloat(tokenAmount)) *
+        100 *
+        (1 - referralReduction);
+    }
 
     setProjectedAnnualReward(userRewardUSD);
     setAPR(APR);
@@ -128,7 +142,7 @@ const Calculator = () => {
           </Tr>
           <Tr>
             <Td>$IDEX usd price:</Td>
-            <Td isNumeric>{exchangeData?.idexUsdPrice || "Loading..."}</Td>
+            <Td isNumeric>{tokenPriceData?.price || "Loading..."}</Td>
           </Tr>
           <Tr>
             <Td>$IDEX market cap:</Td>
