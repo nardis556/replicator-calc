@@ -177,14 +177,9 @@ const Calculator = () => {
       <Box color="white">
         <Text>Staking APR: {APR.toFixed(2)}%</Text>
         <Text display="inline-flex" alignItems="center">
-          <Tooltip
-            label="This is a rough estimate of the annual USD reward, based on the current 24-hour trading volume and the current volume ratio. Please note that actual rewards may vary due to changes in trading volumes and other factors."
-            aria-label="A tooltip"
-          >
-            <Text as="span" textDecoration="underline">
-              Projected annual reward
-            </Text>
-          </Tooltip>{" "}
+          <Text as="span">
+            Projected annual reward
+          </Text>
           {":$USD "}
           {projectedAnnualReward.toFixed(2)}
         </Text>
@@ -197,7 +192,7 @@ const Calculator = () => {
             aria-label="A tooltip"
           >
             <Text as="span" textDecoration="underline">
-              Enter the amount of IDEX tokens:
+              Enter the amount of IDEX tokens(?):
             </Text>
           </Tooltip>
         </Text>
