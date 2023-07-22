@@ -137,19 +137,19 @@ const Calculator = () => {
       <Table variant="simple">
         <Tbody>
           <Tr>
-            <Td>24h Volume:</Td>
+            <Td>24h Volume $USD:</Td>
             <Td isNumeric>{exchangeData?.volume24hUsd || "Loading..."}</Td>
           </Tr>
           <Tr>
-            <Td>$IDEX usd price:</Td>
+            <Td>IDEX $USD price:</Td>
             <Td isNumeric>{tokenPriceData?.price || "Loading..."}</Td>
           </Tr>
           <Tr>
-            <Td>$IDEX market cap:</Td>
+            <Td>IDEX $USD market cap:</Td>
             <Td isNumeric>{exchangeData?.idexMarketCapUsd || "Loading..."}</Td>
           </Tr>
           <Tr>
-            <Td>Total IDEX staked:</Td>
+            <Td>Total $IDEX staked:</Td>
             <Td isNumeric>
               {stakingData
                 ? parseFloat(stakingData.totalStakedIdex).toFixed(2)
