@@ -187,11 +187,9 @@ const Calculator = () => {
       </Table>
 
       <Box color="white">
-        <Text>Staking APR: {APR.toFixed(2)}%</Text>
-        <Text display="inline-flex" alignItems="center">
-          <Text as="span">Projected annual reward</Text>
-          {":$USD "}
-          {projectedAnnualReward.toFixed(2)}
+        <Text fontSize={20}>Staking APR: {APR.toFixed(2)}%</Text>
+        <Text fontSize={20}>
+          Projected annual reward: $USD {projectedAnnualReward.toFixed(2)}
         </Text>
       </Box>
 
