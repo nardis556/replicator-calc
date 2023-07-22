@@ -153,21 +153,33 @@ const Calculator = () => {
         <Tbody>
           <Tr>
             <Td>24h Volume $USD:</Td>
-            <Td isNumeric>{exchangeData?.volume24hUsd || "Loading..."}</Td>
+            <Td isNumeric>
+              {exchangeData?.volume24hUsd
+                ? parseFloat(exchangeData.volume24hUsd).toLocaleString()
+                : "Loading..."}
+            </Td>
           </Tr>
           <Tr>
             <Td>IDEX $USD price:</Td>
-            <Td isNumeric>{tokenPriceData?.price || "Loading..."}</Td>
+            <Td isNumeric>
+              {tokenPriceData?.price
+                ? parseFloat(tokenPriceData.price).toLocaleString()
+                : "Loading..."}
+            </Td>
           </Tr>
           <Tr>
             <Td>IDEX $USD market cap:</Td>
-            <Td isNumeric>{exchangeData?.idexMarketCapUsd || "Loading..."}</Td>
+            <Td isNumeric>
+              {exchangeData?.idexMarketCapUsd
+                ? parseFloat(exchangeData.idexMarketCapUsd).toLocaleString()
+                : "Loading..."}
+            </Td>
           </Tr>
           <Tr>
             <Td>Total $IDEX staked:</Td>
             <Td isNumeric>
               {stakingData
-                ? parseFloat(stakingData.totalStakedIdex).toFixed(2)
+                ? parseFloat(stakingData.totalStakedIdex).toLocaleString()
                 : "Loading..."}
             </Td>
           </Tr>
@@ -177,9 +189,7 @@ const Calculator = () => {
       <Box color="white">
         <Text>Staking APR: {APR.toFixed(2)}%</Text>
         <Text display="inline-flex" alignItems="center">
-          <Text as="span">
-            Projected annual reward
-          </Text>
+          <Text as="span">Projected annual reward</Text>
           {":$USD "}
           {projectedAnnualReward.toFixed(2)}
         </Text>
