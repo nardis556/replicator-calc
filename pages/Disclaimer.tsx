@@ -1,4 +1,6 @@
-import { Box, Center, Text } from '@chakra-ui/react';
+import { Box, Center, Text, Checkbox, Button, useToast } from '@chakra-ui/react';
+import { useState } from 'react';
+
 
 const Disclaimer = () => {
   return (
@@ -15,7 +17,7 @@ const Disclaimer = () => {
         <Text as="li">The Referral Rate slider allows you to simulate the impact of referral earnings on your rewards. A percentage (Ref) of the estimated rewards is deducted according to the set referral rate: Final Reward = R * (1 - Ref).</Text>
       </Text>
       <Text>Note: Actual rewards may differ due to changes in trading volumes, token prices, and other factors. Please perform your own due diligence before making decisions.</Text>
-      <Text mb={2} fontSize={12} align={'center'}> Click X or anywhere outside the disclaimer box to close.</Text>
+      {/* <Text mb={2} fontSize={12} align={'center'}> Click X or anywhere outside the disclaimer box to close.</Text> */}
     </Box>
   );
 }
