@@ -12,6 +12,7 @@ const Disclaimer = () => {
         <Text as="li">Your share of the fees is calculated based on the fraction of total staked IDEX tokens you own.</Text>
         <Text as="li">This share is then converted into USD, and projected for one year to provide an estimated annual reward.</Text>
         <Text as="li">The APR (Annual Percentage Rate) is calculated by comparing your potential annual reward to the amount of staked tokens.</Text>
+        <Text as="li">TODO: Include referrals calculation or slider.</Text>
       </Text>
       <Text>Note: Actual rewards may differ due to changes in trading volumes, token prices, and other factors. Please perform your own due diligence before making decisions.</Text>
       <Text mb={2} fontSize={12} align={'center'}> Click X or anywhere outside the disclaimer box to close.</Text>
