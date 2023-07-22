@@ -11,13 +11,16 @@ import {
   SliderTrack,
   SliderFilledTrack,
   SliderThumb,
-  Tooltip,
-  Flex,
   Table,
   Tbody,
   Tr,
   Td,
+  IconButton,
+  Link,
+  Tooltip,
+  HStack,
 } from "@chakra-ui/react";
+import { FaGithub } from "react-icons/fa";
 
 const Calculator = () => {
   const [exchangeData, setExchangeData] = useState(null);
@@ -132,7 +135,19 @@ const Calculator = () => {
       width="85%"
       maxWidth={600}
     >
-      <Heading color="purple.300">Replicator APR</Heading>
+      <HStack spacing={2}>
+        <Heading color="purple.300">Replicator APR</Heading>
+        <Link href="https://github.com/nardis556/replicator-calc" isExternal>
+          <IconButton
+            as={FaGithub}
+            colorScheme="purple"
+            variant="ghost"
+            aria-label="Source code on GitHub"
+            icon={<FaGithub />}
+            size="md"
+          />
+        </Link>
+      </HStack>
 
       <Table variant="simple">
         <Tbody>
