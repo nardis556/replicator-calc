@@ -29,6 +29,7 @@ const Calculator = () => {
   const [liquidityRatio, setLiquidityRatio] = useState(0.5);
   const [idexLeftRemaining, setIdexLeftRemaining] = useState(0);
   const [fetched, setFetched] = useState(false);
+  const [referralPercentage, setReferralPercentage] = useState(0);
 
   useEffect(() => {
     if (!fetched) {
@@ -67,10 +68,16 @@ const Calculator = () => {
     const totalFees = limitFees + poolFees;
     const userStakeFraction = parseFloat(tokenAmount) / totalStakedIdex;
 
-    const userRewardUSD = totalFees * userStakeFraction * 0.5 * 365;
+    const referralReduction = referralPercentage / 100;
+
+    const userRewardUSD =
+      totalFees * userStakeFraction * 0.5 * 365 * (1 - referralReduction);
     const userRewardIDEX = userRewardUSD / tokenPriceUsd;
 
-    const APR = (userRewardIDEX / parseFloat(tokenAmount)) * 100;
+    const APR =
+      (userRewardIDEX / parseFloat(tokenAmount)) *
+      100 *
+      (1 - referralReduction);
 
     setProjectedAnnualReward(userRewardUSD);
     setAPR(APR);
@@ -91,6 +98,11 @@ const Calculator = () => {
 
   const handleRatioChange = (value) => {
     setLiquidityRatio(value / 100);
+  };
+
+  const handleReferralChange = (value) => {
+    setReferralPercentage(value);
+    calculateRewards(); // recalculate rewards when the referral percentage changes
   };
 
   return (
@@ -175,7 +187,28 @@ const Calculator = () => {
           Submit
         </Button>
       </Box>
-
+      <Box color="white" width="80%">
+        <Text>
+          Referral percentage:{" "}
+          {String(Number(referralPercentage.toFixed(0))).padStart(3, " ")}%
+        </Text>
+        <Box width="100%">
+          <Slider
+            colorScheme="purple"
+            value={referralPercentage}
+            onChange={handleReferralChange}
+            min={0}
+            max={100}
+            step={5}
+            mt={2}
+          >
+            <SliderTrack>
+              <SliderFilledTrack />
+            </SliderTrack>
+            <SliderThumb boxSize={6} />
+          </Slider>
+        </Box>
+      </Box>
       <Box color="white" width="80%">
         <Text>
           Volume ratio (Pool / Total):{" "}
